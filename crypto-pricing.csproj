@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <RootNamespace>crypto_pricing</RootNamespace>
+    <UserSecretsId>b3cdb22d-a6bc-43cf-bf2e-7d30e42a6bdd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

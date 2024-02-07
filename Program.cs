@@ -1,6 +1,7 @@
 using crypto_pricing.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var coinmarketcapApiKey = builder.Configuration["SECRET_CMC_PRO_API_KEY"];
 
 // Add services to the container.
 
@@ -13,7 +14,7 @@ builder.Services.AddHttpClient<ICoinMarketcapService, CoinMarketcapService>(clie
 {
     // client.BaseAddress = new Uri("https://sandbox-api.coinmarketcap.com/");
     client.BaseAddress = new Uri("https://pro-api.coinmarketcap.com/");
-    client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", "SECRET_CMC_PRO_API_KEY");
+    client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", coinmarketcapApiKey);
 });
 
 var app = builder.Build();
