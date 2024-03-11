@@ -1,7 +1,9 @@
+using crypto_pricing.Models.CoinMarketcap;
+
 namespace crypto_pricing.Services
 {
     public interface ICoinMarketcapService
     {
-        Task<string> GetPriceForTokenAsync(string token);
+        Task<CoinMarketCapBaseResponse<CoinData>> GetPriceForTokenAsync(string token);
     }
 }
