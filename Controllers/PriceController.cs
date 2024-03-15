@@ -9,11 +9,13 @@ public class PriceController : ControllerBase
 {
     private readonly ILogger<PriceController> _logger;
     private readonly ICoinMarketcapService _coinMarketcapService;
+    private readonly INethereumService _nethereumService;
 
-    public PriceController(ILogger<PriceController> logger, ICoinMarketcapService coinMarketcapService)
+    public PriceController(ILogger<PriceController> logger, ICoinMarketcapService coinMarketcapService, INethereumService nethereumService)
     {
         _logger = logger;
         _coinMarketcapService = coinMarketcapService;
+        _nethereumService = nethereumService;
     }
 
     [HttpGet(Name = "GetTokenPrice")]
@@ -25,6 +27,7 @@ public class PriceController : ControllerBase
         }
 
         var price = await _coinMarketcapService.GetPriceForTokenAsync(token);
+        var balance = await _nethereumService.GetAccountBalanceAsync("0x8e4d8e3d7f3f0f0f0f0f0f0f0f0f0f0f0f0f0f0f");
         return Ok(price);
     }
 }
