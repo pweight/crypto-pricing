@@ -3,11 +3,11 @@ using Nethereum.Web3;
 
 public class NethereumService : INethereumService
 {
-    private readonly Web3 _web3;
+    private readonly IWeb3 _web3;
 
-    public NethereumService(string rpcUrl)
+    public NethereumService(string infuraApiKey)
     {
-        _web3 = new Web3(rpcUrl);
+        _web3 = new Web3($"https://mainnet.infura.io/v3/{infuraApiKey}");
     }
 
     public async Task<decimal> GetAccountBalanceAsync(string address)

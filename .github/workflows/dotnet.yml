@@ -16,8 +16,9 @@ jobs:
 
     steps:
     - name: Secrets
-      env:
+      env: 
         SECRET_CMC_PRO_API_KEY: ${{ secrets.SECRET_CMC_PRO_API_KEY }}
+        SECRET_INFURA_API_KEY: ${{ secrets.SECRET_INFURA_API_KEY }}
       run: echo 'ha ha nice try'
     - uses: actions/checkout@v3
     - name: Setup .NET

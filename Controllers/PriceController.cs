@@ -19,7 +19,7 @@ public class PriceController : ControllerBase
     }
 
     [HttpGet(Name = "GetTokenPrice")]
-    public async Task<ActionResult<string>> Get(string token)
+    public async Task<ActionResult<PriceAndBalance>> Get(string token, string address)
     {
         if (string.IsNullOrWhiteSpace(token))
         {
@@ -27,7 +27,20 @@ public class PriceController : ControllerBase
         }
 
         var price = await _coinMarketcapService.GetPriceForTokenAsync(token);
-        var balance = await _nethereumService.GetAccountBalanceAsync("0x8e4d8e3d7f3f0f0f0f0f0f0f0f0f0f0f0f0f0f0f");
-        return Ok(price);
+        var balance = await _nethereumService.GetAccountBalanceAsync(address);
+
+        return Ok(new PriceAndBalance
+        {
+            Token = token,
+            Price = 9.00m, //price.Data.FirstOrDefault(x => x.Key == token).Value.FirstOrDefault().Quote.FirstOrDefault().Value.Price,
+            Balance = balance
+        });
     }
+}
+
+public class PriceAndBalance
+{
+    public string Token { get; set; }
+    public decimal Price { get; set; }
+    public decimal Balance { get; set; }
 }

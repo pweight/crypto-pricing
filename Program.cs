@@ -1,7 +1,9 @@
 using crypto_pricing.Services;
+using Nethereum.Web3;
 
 var builder = WebApplication.CreateBuilder(args);
 var coinmarketcapApiKey = builder.Configuration["SECRET_CMC_PRO_API_KEY"];
+var infuraApiKey = builder.Configuration["SECRET_INFURA_API_KEY"];
 
 // Add services to the container.
 
@@ -16,6 +18,8 @@ builder.Services.AddHttpClient<ICoinMarketcapService, CoinMarketcapService>(clie
     client.BaseAddress = new Uri("https://pro-api.coinmarketcap.com/");
     client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", coinmarketcapApiKey);
 });
+
+builder.Services.AddSingleton<INethereumService, NethereumService>(ns => new NethereumService(infuraApiKey));
 
 var app = builder.Build();
 
