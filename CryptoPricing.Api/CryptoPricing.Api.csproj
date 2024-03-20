@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <RootNamespace>crypto_pricing</RootNamespace>
     <UserSecretsId>b3cdb22d-a6bc-43cf-bf2e-7d30e42a6bdd</UserSecretsId>
   </PropertyGroup>
 

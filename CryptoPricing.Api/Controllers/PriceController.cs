@@ -1,7 +1,7 @@
 using crypto_pricing.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace crypto_pricing.Controllers;
+namespace CryptoPricing.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
