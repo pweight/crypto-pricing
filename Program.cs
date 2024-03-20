@@ -4,6 +4,10 @@ using Nethereum.Web3;
 var builder = WebApplication.CreateBuilder(args);
 var coinmarketcapApiKey = builder.Configuration["SECRET_CMC_PRO_API_KEY"];
 var infuraApiKey = builder.Configuration["SECRET_INFURA_API_KEY"];
+if (string.IsNullOrWhiteSpace(coinmarketcapApiKey) || string.IsNullOrWhiteSpace(infuraApiKey))
+{
+    throw new InvalidOperationException("API keys are required");
+}
 
 // Add services to the container.
 

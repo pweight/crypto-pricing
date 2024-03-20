@@ -4,27 +4,35 @@ namespace crypto_pricing.Models.CoinMarketcap
 {
     public class CoinMarketCapBaseResponse<T>
     {
-        public CmcStatusBase Status { get; set; } = default!;
+        [JsonPropertyName("status")]
+        public Status Status { get; set; } = default!;
 
-        public Dictionary<string, List<T>> Data { get; set; } = new Dictionary<string, List<T>>();
+        [JsonPropertyName("data")]
+        public T Data { get; set; } = default!;
     }
 
-    public class CmcStatusBase
+    public class Status
     {
+        [JsonPropertyName("timestamp")]
+        public DateTimeOffset Timestamp { get; set; }
+
         [JsonPropertyName("error_code")]
-        public int ErrorCode { get; set; }
+        public long ErrorCode { get; set; }
 
         [JsonPropertyName("error_message")]
         public string? ErrorMessage { get; set; }
 
         [JsonPropertyName("credit_count")]
-        public int CreditCount { get; set; }
+        public long CreditCount { get; set; }
+
+        [JsonPropertyName("elapsed")]
+        public long Elapsed { get; set; }
     }
 
     public class CoinData
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; } = default!;
@@ -36,7 +44,7 @@ namespace crypto_pricing.Models.CoinMarketcap
         public string Slug { get; set; } = default!;
 
         [JsonPropertyName("num_market_pairs")]
-        public int NumMarketPairs { get; set; }
+        public long NumMarketPairs { get; set; }
 
         [JsonPropertyName("date_added")]
         public DateTimeOffset DateAdded { get; set; }
@@ -45,13 +53,13 @@ namespace crypto_pricing.Models.CoinMarketcap
         public List<Tag> Tags { get; set; } = new List<Tag>();
 
         [JsonPropertyName("max_supply")]
-        public double? MaxSupply { get; set; }
+        public decimal? MaxSupply { get; set; }
 
         [JsonPropertyName("circulating_supply")]
-        public double CirculatingSupply { get; set; }
+        public decimal CirculatingSupply { get; set; }
 
         [JsonPropertyName("total_supply")]
-        public double TotalSupply { get; set; }
+        public decimal TotalSupply { get; set; }
 
         [JsonPropertyName("is_active")]
         public int IsActive { get; set; }
@@ -63,21 +71,21 @@ namespace crypto_pricing.Models.CoinMarketcap
         public Platform? Platform { get; set; }
 
         [JsonPropertyName("cmc_rank")]
-        public int CmcRank { get; set; }
+        public long? CmcRank { get; set; }
 
         [JsonPropertyName("is_fiat")]
         public int IsFiat { get; set; }
 
         [JsonPropertyName("self_reported_circulating_supply")]
-        public int? SelfReportedCirculatingSupply { get; set; }
+        public decimal? SelfReportedCirculatingSupply { get; set; }
 
         [JsonPropertyName("self_reported_market_cap")]
-        public int? SelfReportedMarketCap { get; set; }
-        // public object TvlRatio { get; set; }
+        public decimal? SelfReportedMarketCap { get; set; }
         
         [JsonPropertyName("last_updated")]
         public DateTimeOffset LastUpdated { get; set; }
 
+        [JsonPropertyName("quote")]
         public Dictionary<string, Quote> Quote { get; set; } = new Dictionary<string, Quote>();
     }
     
@@ -114,7 +122,7 @@ namespace crypto_pricing.Models.CoinMarketcap
     public class Quote
     {
         [JsonPropertyName("price")]
-        public double Price { get; set; }
+        public decimal? Price { get; set; }
 
         [JsonPropertyName("volume_24h")]
         public double Volume24h { get; set; }
@@ -141,14 +149,13 @@ namespace crypto_pricing.Models.CoinMarketcap
         public double PercentChange90d { get; set; }
 
         [JsonPropertyName("market_cap")]
-        public double MarketCap { get; set; }
+        public decimal? MarketCap { get; set; }
 
         [JsonPropertyName("market_cap_dominance")]
         public double MarketCapDominance { get; set; }
 
         [JsonPropertyName("fully_diluted_market_cap")]
         public double FullyDilutedMarketCap { get; set; }
-        // public object Tvl { get; set; }
 
         [JsonPropertyName("last_updated")]
         public DateTime LastUpdated { get; set; }

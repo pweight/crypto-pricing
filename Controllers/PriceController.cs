@@ -29,18 +29,29 @@ public class PriceController : ControllerBase
         var price = await _coinMarketcapService.GetPriceForTokenAsync(token);
         var balance = await _nethereumService.GetAccountBalanceAsync(address);
 
-        return Ok(new PriceAndBalance
+        var priceData = price.Data.FirstOrDefault(d => d.Key.Equals(token, StringComparison.InvariantCultureIgnoreCase)).Value;
+        var quoteData = priceData?.FirstOrDefault()?.Quote?.FirstOrDefault(q => q.Key.Equals("USD", StringComparison.InvariantCultureIgnoreCase)).Value;
+        if (quoteData != null)
         {
-            Token = token,
-            Price = 9.00m, //price.Data.FirstOrDefault(x => x.Key == token).Value.FirstOrDefault().Quote.FirstOrDefault().Value.Price,
-            Balance = balance
-        });
+            return Ok(new PriceAndBalance
+            {
+                Token = token,
+                Price = quoteData.Price ?? 0m,
+                Balance = balance
+            });
+        }
+        else
+        {
+            return NotFound("Price data not found");
+        }
     }
 }
 
 public class PriceAndBalance
 {
-    public string Token { get; set; }
+    public string Token { get; set; } = default!;
     public decimal Price { get; set; }
     public decimal Balance { get; set; }
 }
+
+// SWITCH: CMC ID: 24302
