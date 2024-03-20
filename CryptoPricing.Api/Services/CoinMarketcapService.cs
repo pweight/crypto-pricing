@@ -24,9 +24,7 @@ public class CoinMarketcapService : ICoinMarketcapService
 
         var responseDeserialized = JsonSerializer.Deserialize<CoinMarketCapBaseResponse<Dictionary<string, List<CoinData>>>>(responseBody)
             ?? throw new JsonException("Failed to deserialize the response.");
-        Console.WriteLine(responseDeserialized);
 
-        // Console.WriteLine(responseBody);
         return responseDeserialized;; 
     }
 }

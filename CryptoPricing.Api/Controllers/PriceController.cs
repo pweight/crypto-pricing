@@ -1,5 +1,6 @@
 using crypto_pricing.Services;
 using Microsoft.AspNetCore.Mvc;
+using CryptoPricing.Models.ApiModels;
 
 namespace CryptoPricing.Api.Controllers;
 
@@ -19,7 +20,7 @@ public class PriceController : ControllerBase
     }
 
     [HttpGet(Name = "GetTokenPrice")]
-    public async Task<ActionResult<PriceAndBalance>> Get(string token, string address)
+    public async Task<ActionResult<GetPriceResponse>> Get(string token, string address)
     {
         if (string.IsNullOrWhiteSpace(token))
         {
@@ -33,7 +34,7 @@ public class PriceController : ControllerBase
         var quoteData = priceData?.FirstOrDefault()?.Quote?.FirstOrDefault(q => q.Key.Equals("USD", StringComparison.InvariantCultureIgnoreCase)).Value;
         if (quoteData != null)
         {
-            return Ok(new PriceAndBalance
+            return Ok(new GetPriceResponse
             {
                 Token = token,
                 Price = quoteData.Price ?? 0m,
@@ -46,12 +47,4 @@ public class PriceController : ControllerBase
         }
     }
 }
-
-public class PriceAndBalance
-{
-    public string Token { get; set; } = default!;
-    public decimal Price { get; set; }
-    public decimal Balance { get; set; }
-}
-
 // SWITCH: CMC ID: 24302
